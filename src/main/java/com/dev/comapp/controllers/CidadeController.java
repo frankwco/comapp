@@ -12,61 +12,65 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dev.comapp.models.Categoria;
+import com.dev.comapp.models.Cidade;
+import com.dev.comapp.models.Estado;
 import com.dev.comapp.repository.CategoriaRepository;
+import com.dev.comapp.repository.CidadeRepository;
+import com.dev.comapp.repository.EstadoRepository;
 
 
 
 @Controller
-public class CategoriaController {
+public class CidadeController {
 	
 	@Autowired
-	private CategoriaRepository repository;
+	private CidadeRepository repository;
 	
-	@GetMapping("/categoria")
+	@GetMapping("/cidades")
 	public ModelAndView buscarTodos() {
 		
-		ModelAndView mv = new ModelAndView("/categoriaPost");
-		mv.addObject("categorias", repository.findAll());
+		ModelAndView mv = new ModelAndView("/cidadeLista");
+		mv.addObject("cidades", repository.findAll());
 		
 		return mv;
 	}
 	
-	@GetMapping("/addCategoria")
-	public ModelAndView add(Categoria categoria) {
+	@GetMapping("/adicionarCidade")
+	public ModelAndView add(Cidade cidade) {
 		
-		ModelAndView mv = new ModelAndView("/categoriaAdd");
-		mv.addObject("categoria", categoria);
+		ModelAndView mv = new ModelAndView("/cidadeAdicionar");
+		mv.addObject("cidade", cidade);
 		
 		return mv;
 	}
 	
-	@GetMapping("/editarCategoria/{id}")
+	@GetMapping("/editarCidade/{id}")
 	public ModelAndView edit(@PathVariable("id") Long id) {
 		
-		Optional<Categoria> categoria = repository.findById(id);
-		Categoria e = categoria.get();	
+		Optional<Cidade> cidade = repository.findById(id);
+		Cidade e = cidade.get();	
 		
 		return add(e);
 	}
 	
-	@GetMapping("/removerCategoria/{id}")
+	@GetMapping("/removerCidade/{id}")
 	public ModelAndView delete(@PathVariable("id") Long id) {
 		
-		Optional<Categoria> categoria = repository.findById(id);
-		Categoria e = categoria.get();
+		Optional<Cidade> cidade = repository.findById(id);
+		Cidade e = cidade.get();
 		repository.delete(e);	
 		
 		return buscarTodos();
 	}
 
-	@PostMapping("/salvarCategoria")
-	public ModelAndView save(@Valid Categoria categoria, BindingResult result) {
+	@PostMapping("/salvarCidade")
+	public ModelAndView save(@Valid Cidade cidade, BindingResult result) {
 		
 		if(result.hasErrors()) {
-			return add(categoria);
+			return add(cidade);
 		}
 		
-		repository.saveAndFlush(categoria);
+		repository.saveAndFlush(cidade);
 		
 		return buscarTodos();
 	}
