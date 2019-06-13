@@ -19,14 +19,16 @@
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>Nome</th>												
+							<th>Nome</th>	
+							<th>Estado</th>											
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="cidade : ${cidades}">
 							<td th:text="${cidade.id}"></td>
-							<td th:text="${cidade.nome}"></td>												
+							<td th:text="${cidade.nome}"></td>	
+							<td th:text="${cidade.estado}"></td>											
 							<td>
 								<div class="btn-group pull-right">
 							   		<a class="btn btn-sm btn-primary" th:href="@{/editarCidade/{id}(id=${cidade.id})}" >Editar</a>

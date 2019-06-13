@@ -1,5 +1,6 @@
 package com.dev.comapp.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -26,11 +27,15 @@ public class CidadeController {
 	@Autowired
 	private CidadeRepository repository;
 	
+	@Autowired
+	private EstadoRepository repositoryEstado;
+	
 	@GetMapping("/cidades")
 	public ModelAndView buscarTodos() {
 		
 		ModelAndView mv = new ModelAndView("/cidadeLista");
 		mv.addObject("cidades", repository.findAll());
+				
 		
 		return mv;
 	}
@@ -40,6 +45,9 @@ public class CidadeController {
 		
 		ModelAndView mv = new ModelAndView("/cidadeAdicionar");
 		mv.addObject("cidade", cidade);
+		
+		List<Estado> listaEstado = repositoryEstado.findAll();
+		mv.addObject("estados",listaEstado);
 		
 		return mv;
 	}

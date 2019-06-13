@@ -27,6 +27,10 @@ public class Estado implements Serializable {
 	@Column(nullable = false, length = 50)
 	@NotEmpty(message = "A sigla do estado é obrigatório")
 	private String sigla;
+	
+	public String getNomeSigla() {
+		return nome+"-"+sigla;
+	}
 
 	public Long getId() {
 		return id;
@@ -50,6 +54,11 @@ public class Estado implements Serializable {
 
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
+	}
+
+	@Override
+	public String toString() {
+		return nome+"-"+sigla;
 	}
 
 	

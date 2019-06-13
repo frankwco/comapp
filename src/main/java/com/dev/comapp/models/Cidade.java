@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
 
@@ -24,6 +24,19 @@ public class Cidade implements Serializable {
 	@NotEmpty(message = "O nome da cidade é obrigatório")
 	private String nome;
 	
+	@ManyToOne
+	private Estado estado;	
+	
+	
+	
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
 	public Long getId() {
 		return id;
 	}
