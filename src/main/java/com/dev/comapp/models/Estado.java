@@ -11,7 +11,7 @@ import javax.validation.constraints.NotEmpty;
 
 
 
-@Entity(name = "estado")
+@Entity
 public class Estado implements Serializable {
 
 	private static final long serialVersionUID = 1L;

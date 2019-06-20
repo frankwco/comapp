@@ -28,7 +28,7 @@ public class EstadoController {
 	public ModelAndView buscarTodos() {
 		
 		ModelAndView mv = new ModelAndView("/estadoLista");
-		mv.addObject("estados", repository.findAll());
+		mv.addObject("estados", repository.buscarPorNome("e"));
 		
 		return mv;
 	}
