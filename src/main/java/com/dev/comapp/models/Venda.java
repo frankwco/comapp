@@ -32,8 +32,16 @@ public class Venda implements Serializable {
 	@ManyToOne
 	private Cliente cliente;
 	private String observacao;
+	private Double valorTotalVenda;
 	
-	
+
+	public Double getValorTotalVenda() {
+		return valorTotalVenda;
+	}
+
+	public void setValorTotalVenda(Double valorTotalVenda) {
+		this.valorTotalVenda = valorTotalVenda;
+	}
 
 	public Long getId() {
 		return id;

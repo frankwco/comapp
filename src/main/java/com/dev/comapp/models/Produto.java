@@ -10,10 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-
-
 @Entity
-@Table(name="produto")
+@Table(name = "produto")
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,11 +19,38 @@ public class Produto implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
 
 	private String descrição;
 	private Double valorVenda;
+	private Double quantidadeEstoque;
+	private Double valorCusto;
+	private Double porcentagemLucro;
 	
+	
+	
+	public Double getValorCusto() {
+		return valorCusto;
+	}
+
+	public void setValorCusto(Double valorCusto) {
+		this.valorCusto = valorCusto;
+	}
+
+	public Double getPorcentagemLucro() {
+		return porcentagemLucro;
+	}
+
+	public void setPorcentagemLucro(Double porcentagemLucro) {
+		this.porcentagemLucro = porcentagemLucro;
+	}
+
+	public Double getQuantidadeEstoque() {
+		return quantidadeEstoque;
+	}
+
+	public void setQuantidadeEstoque(Double quantidadeEstoque) {
+		this.quantidadeEstoque = quantidadeEstoque;
+	}
 
 	public Long getId() {
 		return id;
@@ -51,7 +76,4 @@ public class Produto implements Serializable {
 		this.valorVenda = valorVenda;
 	}
 
-
-	
-	
 }
