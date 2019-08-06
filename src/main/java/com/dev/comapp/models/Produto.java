@@ -20,7 +20,7 @@ public class Produto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private String descrição;
+	private String descricao;
 	private Double valorVenda;
 	private Double quantidadeEstoque;
 	private Double valorCusto;
@@ -60,12 +60,14 @@ public class Produto implements Serializable {
 		this.id = id;
 	}
 
-	public String getDescrição() {
-		return descrição;
+
+
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDescrição(String descrição) {
-		this.descrição = descrição;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public Double getValorVenda() {
