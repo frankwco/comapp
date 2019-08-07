@@ -16,9 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dev.comapp.models.Categoria;
 import com.dev.comapp.models.ItensVenda;
+import com.dev.comapp.models.Produto;
 import com.dev.comapp.models.Venda;
 import com.dev.comapp.repository.CategoriaRepository;
 import com.dev.comapp.repository.ItensVendaRepository;
+import com.dev.comapp.repository.ProdutoRepository;
 import com.dev.comapp.repository.VendaRepository;
 
 @Controller
@@ -29,6 +31,9 @@ public class VendaController {
 
 	@Autowired
 	private ItensVendaRepository itensVendaRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	private Venda venda = new Venda();
 	private ItensVenda itensVenda = new ItensVenda();
@@ -73,9 +78,7 @@ public class VendaController {
 	// }
 
 	@PostMapping("/inserirSalvarVenda")
-	public ModelAndView save(@Valid Venda venda, 
-			@Valid ItensVenda itensVenda, BindingResult result, 
-			String acao) {
+	public ModelAndView save(@Valid Venda venda, @Valid ItensVenda itensVenda, BindingResult result, String acao) {
 
 		// if(result.hasErrors()) {
 		// return add(categoria);
@@ -89,6 +92,12 @@ public class VendaController {
 			this.venda.setDataVenda(new Date());
 			vendaRepository.saveAndFlush(this.venda);
 			for (ItensVenda it : listaItensVenda) {
+				
+				it.getProduto().setQuantidadeEstoque(
+						it.getProduto().getQuantidadeEstoque() 
+						- it.getQuantidade());
+				produtoRepository.saveAndFlush(it.getProduto());
+				
 				it.setVenda(this.venda);
 				itensVendaRepository.saveAndFlush(it);
 			}
