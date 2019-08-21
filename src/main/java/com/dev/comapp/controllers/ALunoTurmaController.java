@@ -45,15 +45,17 @@ public class ALunoTurmaController {
 		// alunosDaTurma.getTurma().setQuantidadeVagas(alunosDaTurma.getTurma()
 		// .getQuantidadeVagas() - 1);
 
-		if (turma.getVagasRestantes().equals(-1)) {
-			turma.setVagasRestantes(turma.getQuantidadeVagas() - 1);
-		} else {
-			turma.setVagasRestantes(turma.getVagasRestantes() - 1);
+		if (!turma.getVagasRestantes().equals(0)) {
+			if (turma.getVagasRestantes().equals(-1)) {
+				turma.setVagasRestantes(turma.getQuantidadeVagas() - 1);
+			} else {
+				turma.setVagasRestantes(turma.getVagasRestantes() - 1);
+			}
+
+			this.turmaRepository.saveAndFlush(turma);
+
+			this.alunoTurmaRepository.saveAndFlush(alunosDaTurma);
 		}
-
-		this.turmaRepository.saveAndFlush(turma);
-
-		this.alunoTurmaRepository.saveAndFlush(alunosDaTurma);
 
 		return new ModelAndView("redirect:/matricula");
 	}
