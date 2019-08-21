@@ -23,6 +23,18 @@ public class Aluno implements Serializable {
 	@Column(nullable = false, length = 50)
 	@NotEmpty(message = "O nome é obrigatório")
 	private String nome;
+	
+	private String cpf;
+	
+	
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 
 	public Long getId() {
 		return id;

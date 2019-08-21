@@ -1,5 +1,6 @@
 package com.dev.comapp.controllers;
 
+import java.awt.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -27,10 +28,25 @@ public class AlunoController {
 	public ModelAndView buscarTodos() {
 		
 		ModelAndView mv = new ModelAndView("/alunosLista");
-		mv.addObject("alunos", repository.findAll());
+		java.util.List<Aluno> listaAlunos =  repository.findAll();
+		mv.addObject("alunos", listaAlunos);
+		mv.addObject("quantidadeAlunos", listaAlunos.size());
 		
 		return mv;
 	}
+	
+	//BUSCAR ALUNO POR NOME
+	@GetMapping("/buscarAlunoNome")
+	public ModelAndView buscarAlunos(String nome) {		
+		ModelAndView mv = new ModelAndView("/alunosLista");
+		mv.addObject("alunos", repository.buscarPorNome(nome));		
+		return mv;
+	}
+	
+	
+	
+	
+	
 	
 	@GetMapping("/addAluno")
 	public ModelAndView add(Aluno categoria) {
@@ -63,7 +79,7 @@ public class AlunoController {
 	@PostMapping("/salvarAluno")
 	public ModelAndView save(@Valid Aluno aluno, BindingResult result) {
 		
-		if(result.hasErrors()) {
+		if(result.hasErrors()  || !aluno.getCpf().equals(11)) {
 			return add(aluno);
 		}
 		
