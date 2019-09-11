@@ -16,6 +16,7 @@ import com.dev.comapp.models.Evento;
 import com.dev.comapp.repository.EventoRepository;
 
 @Controller
+@RequestMapping("/evento")
 public class EventoController {
 
 	@Autowired
