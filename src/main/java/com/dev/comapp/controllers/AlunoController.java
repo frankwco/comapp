@@ -79,7 +79,7 @@ public class AlunoController {
 	@PostMapping("/salvarAluno")
 	public ModelAndView save(@Valid Aluno aluno, BindingResult result) {
 		
-		if(result.hasErrors()  || !aluno.getCpf().equals(11)) {
+		if(result.hasErrors() || aluno.getCpf().length()!=11) {
 			return add(aluno);
 		}
 		

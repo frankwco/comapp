@@ -37,6 +37,16 @@ public class ALunoTurmaController {
 
 		return mv;
 	}
+	
+	@GetMapping("/listarAlunoTurma")
+	public ModelAndView listarAlunoTurma() {
+
+		ModelAndView mv = new ModelAndView("/alunoTurmaLista");
+		mv.addObject("listsaAlunosTurmas", alunoTurmaRepository.findAll());
+	
+
+		return mv;
+	}
 
 	@PostMapping("/inserirMatricula")
 	public ModelAndView save(@Valid AlunoTurma alunosDaTurma, BindingResult result) {
