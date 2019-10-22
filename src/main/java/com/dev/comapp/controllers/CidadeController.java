@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dev.comapp.models.Categoria;
 import com.dev.comapp.models.Cidade;
 import com.dev.comapp.models.Estado;
+import com.dev.comapp.models.Funcionario;
 import com.dev.comapp.repository.CategoriaRepository;
 import com.dev.comapp.repository.CidadeRepository;
 import com.dev.comapp.repository.EstadoRepository;
+import com.dev.comapp.repository.FuncionarioRepository;
+import com.dev.comapp.repository.PapelRepository;
+import com.dev.comapp.repository.PermissoesFuncionarioRepository;
 
 
 
@@ -29,6 +34,15 @@ public class CidadeController {
 	
 	@Autowired
 	private EstadoRepository repositoryEstado;
+	
+	@Autowired
+	private FuncionarioRepository funcionarioRepository;
+	
+	@Autowired
+	private PapelRepository papelRepository;
+	
+	@Autowired
+	private PermissoesFuncionarioRepository permissoesRepository;
 	
 	@GetMapping("/cidades")
 	public ModelAndView buscarTodos() {
@@ -73,6 +87,12 @@ public class CidadeController {
 
 	@PostMapping("/salvarCidade")
 	public ModelAndView save(@Valid Cidade cidade, BindingResult result) {
+		
+		Funcionario fun = new Funcionario();
+		fun.setEmail("frankwco@gmail.com");
+		fun.setSenha(new BCryptPasswordEncoder().encode("111"));
+		fun.setNome("Frank");
+		funcionarioRepository.save(fun);
 		
 		if(result.hasErrors()) {
 			return add(cidade);
