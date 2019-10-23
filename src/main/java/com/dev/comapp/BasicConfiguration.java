@@ -1,9 +1,5 @@
 package com.dev.comapp;
 
-
-
-
-
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +19,7 @@ public class BasicConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private DataSource dataSource;
-	
+
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -33,25 +29,26 @@ public class BasicConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// neste método que vamos tratar os usuários
 		// do banco....
-//		auth.inMemoryAuthentication().withUser("user")
-//		.password(new BCryptPasswordEncoder().encode("123")).roles("USER")
-//				.and().withUser("admin")
-//				.password(new BCryptPasswordEncoder()
-//						.encode("admin")).roles("USER", "ADMIN");
+		// auth.inMemoryAuthentication().withUser("user")
+		// .password(new BCryptPasswordEncoder().encode("123")).roles("USER")
+		// .and().withUser("admin")
+		// .password(new BCryptPasswordEncoder()
+		// .encode("admin")).roles("USER", "ADMIN");
 		auth.jdbcAuthentication().dataSource(dataSource)
-		.usersByUsernameQuery("select email as username, senha as password, 1 as enable from funcionario where email=?")
-		.authoritiesByUsernameQuery("")
-		.passwordEncoder(new BCryptPasswordEncoder());	
+				.usersByUsernameQuery(
+						"select email as username, senha as password, 1 as enable from funcionario where email=?")
+				.authoritiesByUsernameQuery(
+						"select funcionario.email as username, papel.nome as authority from permissoes_funcionario inner join funcionario on funcionario.id=permissoes_funcionario.funcionario_id inner join papel on permissoes_funcionario.papel_id=papel.id where funcionario.email=?")
+				.passwordEncoder(new BCryptPasswordEncoder());
 
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/cidades/**")
-				.hasAnyAuthority("vendedor").and().formLogin()
+		http.authorizeRequests().antMatchers("/cidades/**").hasAnyAuthority("vendedor","gerente").
+		antMatchers("/estados/**").hasAnyAuthority("gerente").and().formLogin()
 				.loginPage("/login").permitAll().and().logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/").and()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/").and()
 				.exceptionHandling().accessDeniedPage("/negado");
 
 	}
