@@ -9,11 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-
-
-@Entity(name = "permissoes_funcionario")
+@Entity
+@Table(name="permissoes_funcionario")
 public class PermissoesFuncionario implements Serializable {
 
 	private static final long serialVersionUID = 1L;

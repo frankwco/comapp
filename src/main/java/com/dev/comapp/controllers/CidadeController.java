@@ -35,15 +35,7 @@ public class CidadeController {
 	@Autowired
 	private EstadoRepository repositoryEstado;
 	
-	@Autowired
-	private FuncionarioRepository funcionarioRepository;
-	
-	@Autowired
-	private PapelRepository papelRepository;
-	
-	@Autowired
-	private PermissoesFuncionarioRepository permissoesRepository;
-	
+
 	@GetMapping("/cidades")
 	public ModelAndView buscarTodos() {
 		
@@ -88,11 +80,6 @@ public class CidadeController {
 	@PostMapping("/salvarCidade")
 	public ModelAndView save(@Valid Cidade cidade, BindingResult result) {
 		
-		Funcionario fun = new Funcionario();
-		fun.setEmail("frankwco@gmail.com");
-		fun.setSenha(new BCryptPasswordEncoder().encode("111"));
-		fun.setNome("Frank");
-		funcionarioRepository.save(fun);
 		
 		if(result.hasErrors()) {
 			return add(cidade);
