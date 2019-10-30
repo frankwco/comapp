@@ -14,42 +14,8 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
-<script type="text/javascript">
-		$(document).ready(
-			function(){
-				$("#formPapel").submit(function(event){
-					event.preventDefault();
-					submeterPapel();
-				});			
-				
-				function submeterPapel(){
-					var valoresCampos={
-							nome : $("#nome").val()
-					}
-// 					alert(valoresCampos.nome);
-					//console.log(valoresCampos);
-					$.ajax({
-						type:"POST",
-						contentType:"application/json",
-						url: "/comapp/salvarPapel",
-						dataType:'json',
-						data : JSON.stringify(valoresCampos),
-						success: function(result){
-							//alert("asd");
-							if(result.id!=null){
-								//alert("salvo com sucesso "+result.nome);
-								$("#mensagem").html("Salvo com sucesso");
-							}else{
-								//alert("Erro ao salvar "+result.nome);
-								$("#mensagem").html("Erro ao salvar");
-							}
-						},
-						error : function(e){
-							alert("ERROR: "+e.nome);
-						}
-					})
-				}
-			})	
+<script type="text/javascript" src="/comapp/js/postForm.js">
+		
 	</script>
 
 </head>
@@ -59,6 +25,7 @@
 			<strong>Cadastro de Papel</strong>
 		</div>
 		<div class="panel-body">
+		<div id="mensagem"></div>
 			<form id="formPapel" class="form-horizontal" th:object="${obj}"
 				style="margin: 10px">
 				<div class="form-group">
@@ -93,7 +60,7 @@
 					<a th:href="@{/papeis}" class="btn btn-sm btn-default">Cancelar</a>
 				</div>
 			</form>
-			<div id="mensagem"></div>
+			
 		</div>
 	</div>
 </body>
