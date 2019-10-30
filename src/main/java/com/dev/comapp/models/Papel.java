@@ -24,6 +24,9 @@ public class Papel implements Serializable {
 
 	private String nome;
 
+	public Papel() {
+		
+	}
 	
 	public String getEmail() {
 		return email;
